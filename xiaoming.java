@@ -13,6 +13,7 @@ class Person_thread extends Thread{
 		for(int i=1;i<1000;i++){
 			if(getName().equals("Yao Ming"))
 			{
+				synchronized(ming){
 				ming.Name="Yao Ming";
 				try{
 					Thread.sleep((int)Math.random()*1000);
@@ -21,8 +22,10 @@ class Person_thread extends Thread{
 				}
 				ming.Length=2.26;
 				System.out.println(ming.Name+" "+ming.Length+" M");
+				}
 			}
 			else{
+				synchronized(ming){
 				ming.Name="Guo Jingming";
 				try{
 					Thread.sleep((int)Math.random()*1000);
@@ -31,6 +34,7 @@ class Person_thread extends Thread{
 				}
 				ming.Length=1.40;
 				System.out.println(ming.Name+" "+ming.Length+" M");
+				}
 			}
 		}
 		
