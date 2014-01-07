@@ -9,8 +9,31 @@ class Reader_Writer{
 }
 class Shared{
 	private char ch='\000';
-	void set_ch(char ch){this.ch=ch;}
-	char get_ch(){return ch;}
+	private boolean readable = false;
+	void set_ch(char ch){		
+		synchronized(this){
+			while(readable)
+			try{
+				this.wait();
+			}catch(InterruptedException e){}
+			
+			this.ch=ch;
+			readable=true;
+			notify();
+		}
+	}
+	char get_ch(){
+		synchronized(this){
+			while(!readable)
+			try{
+					this.wait();
+				}catch(InterruptedException e){}
+			
+			readable = false;
+			notify();
+			return ch;
+		}		
+	}
 }
 class Reader_thread extends Thread{
 	private Shared shared_object;
@@ -27,7 +50,7 @@ class Reader_thread extends Thread{
 			Thread.sleep((int)(Math.random() * 4000));
 		}catch(InterruptedException e){}
 		ch=shared_object.get_ch();
-		System.out.println(ch+getName());
+		System.out.println(ch+" "+getName());
 		}while(ch!='Z');
 	}
 }
@@ -46,7 +69,7 @@ class Writer_thread extends Thread{
 				Thread.sleep((int)(Math.random()*4000));
 			}catch(InterruptedException e){}
 			shared_object.set_ch(ch);
-			System.out.println(ch+getName());
+			System.out.println(ch+" "+getName());
 		}
 	}
 
