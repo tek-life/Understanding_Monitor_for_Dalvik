@@ -11,10 +11,10 @@ class Person_thread extends Thread{
 	}
 	public void run(){
 		for(int i=1;i<1000;i++){
-			if(getName().equals("Yao Ming"))
+			if(getName().equals("Yao Xiaoming"))
 			{
 				synchronized(ming){
-				ming.Name="Yao Ming";
+				ming.Name="Yao Xiaoming";
 				try{
 					Thread.sleep((int)(Math.random()*1000));
 				}catch(InterruptedException e){
@@ -26,7 +26,7 @@ class Person_thread extends Thread{
 			}
 			else{
 				synchronized(ming){
-				ming.Name="Guo Jingming";
+				ming.Name="Guo Xiaoming";
 				try{
 					Thread.sleep((int)(Math.random()*1000));
 				}catch(InterruptedException e){
@@ -44,8 +44,8 @@ class Person_thread extends Thread{
 class XiaoMing{
 	static public void main(String args[]){
 		Person xiaoming=new Person();
-		Person_thread ming_A=new Person_thread(xiaoming,"Yao Ming");
-		Person_thread ming_B=new Person_thread(xiaoming,"Guo Jingming");
+		Person_thread ming_A=new Person_thread(xiaoming,"Yao Xiaoming");
+		Person_thread ming_B=new Person_thread(xiaoming,"Guo Xiaoming");
 		ming_A.start();
 		ming_B.start();
 	}
