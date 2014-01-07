@@ -10,29 +10,25 @@ class Reader_Writer{
 class Shared{
 	private char ch='\000';
 	private boolean readable = false;
-	void set_ch(char ch){		
-		synchronized(this){
-			while(readable)
+	synchronized void set_ch(char ch){		
+		while(readable)
 			try{
 				this.wait();
 			}catch(InterruptedException e){}
 			
-			this.ch=ch;
-			readable=true;
-			notify();
-		}
+		this.ch=ch;
+		readable=true;
+		notify();
 	}
-	char get_ch(){
-		synchronized(this){
-			while(!readable)
+	synchronized char get_ch(){
+		while(!readable)
 			try{
 					this.wait();
 				}catch(InterruptedException e){}
 			
-			readable = false;
-			notify();
-			return ch;
-		}		
+		readable = false;
+		notify();
+		return ch;
 	}
 }
 class Reader_thread extends Thread{
