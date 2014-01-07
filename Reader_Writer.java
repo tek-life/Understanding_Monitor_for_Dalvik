@@ -27,7 +27,7 @@ class Reader_thread extends Thread{
 			Thread.sleep((int)(Math.random() * 4000));
 		}catch(InterruptedException e){}
 		ch=shared_object.get_ch();
-		System.out.println(ch+getName());
+		System.out.println(ch+" "+getName());
 		}while(ch!='Z');
 	}
 }
@@ -46,7 +46,7 @@ class Writer_thread extends Thread{
 				Thread.sleep((int)(Math.random()*4000));
 			}catch(InterruptedException e){}
 			shared_object.set_ch(ch);
-			System.out.println(ch+getName());
+			System.out.println(ch+" "+getName());
 		}
 	}
 
